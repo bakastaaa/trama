@@ -63,7 +63,8 @@
   transition: var(--duracao);
 }
 
-.menu__link:hover {
+.menu__link:hover,
+.menu__link--ativo {
   color: var(--cor-primaria);
 }
 
@@ -81,7 +82,8 @@
     transition: var(--duracao);
 }
 
-.menu__link:hover:before {
+.menu__link:hover:before,
+.menu__link--ativo:before {
     width: 80%;
     transition: var(--duracao);
 }
@@ -433,17 +435,20 @@
 }
 
 .hero h1 {
-  /* encolhe em telas pequenas e nunca passa de 80px; quebra a palavra se for preciso */
-  font-size: clamp(40px, 12vw, 80px);
-  overflow-wrap: anywhere;
+  max-width: 9ch;
+  font-size: clamp(38px, 4vw, 60px);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
 }
 
 .hero__painel--meio { background-color: var(--cor-banner-2); }
 .hero__painel--direita { background-color: var(--cor-banner-3); }
 
 .hero__texto {
+  max-width: 28ch;
   color: var(--cor-texto-suave);
   font-size: 18px;
+  line-height: 1.45;
 }
 
 /* ---------- Produtos ---------- */
@@ -960,11 +965,6 @@
 
 .relacionado__link:hover { text-decoration: underline; }
 
-.relacionado__texto {
-  font-size: 14px;
-  color: var(--cor-texto-secundario);
-}
-
 .relacionado__preco {
   font-weight: 700;
   color: var(--cor-texto-painel);
@@ -1066,12 +1066,26 @@
 .avaliacao__acoes { display: flex; flex-wrap: wrap; gap: var(--esp-1); align-self: end; }
 
 .avaliacoes__vazio {
-  padding: var(--esp-3);
-  border: 2px dashed var(--cor-borda-forte);
+  display: grid;
+  place-content: center;
+  min-height: 180px;
+  gap: var(--esp-1);
+  padding: var(--esp-4);
+  border: 1px dashed var(--cor-borda-forte);
   border-radius: var(--raio-grande);
+  background-color: var(--cor-fundo-produto);
   color: var(--cor-texto-secundario);
   text-align: center;
 }
+
+.avaliacoes__vazio strong {
+  color: var(--cor-texto);
+  font-size: 18px;
+}
+
+.avaliacoes__vazio span { max-width: 38ch; }
+
+.avaliacoes__vazio[hidden] { display: none; }
 
 /* ---------- Janelas (dialog) ---------- */
 .janela {

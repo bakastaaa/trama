@@ -1,23 +1,29 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoja } from "../contextos/LojaContexto.jsx";
 import BotaoTema from "./BotaoTema.jsx";
 import Icone from "./Icone.jsx";
 
 const menu = [
   { texto: "Novidades", destino: "/busca?ordem=novidades" },
-  { texto: "Feminino", destino: "/busca" },
-  { texto: "Masculino", destino: "/busca" },
-  { texto: "Infantil", destino: "/busca" },
-  { texto: "Camisetas", destino: "/busca?categoria=Camisetas" },
-  { texto: "Calças", destino: "/busca?categoria=Calças" },
-  { texto: "Jaquetas", destino: "/busca?categoria=Jaquetas" },
-  { texto: "Acessórios", destino: "/busca?categoria=Acessórios" },
+  { texto: "Feminino", destino: "/busca?publico=feminino" },
+  { texto: "Masculino", destino: "/busca?publico=masculino" },
+  { texto: "Infantil", destino: "/busca?publico=infantil" },
+  { texto: "Camisetas", destino: "/busca?categoria=camisetas" },
+  { texto: "Calças", destino: "/busca?categoria=calcas" },
+  { texto: "Jaquetas", destino: "/busca?categoria=jaquetas" },
+  { texto: "Acessórios", destino: "/busca?categoria=acessorios" },
   { texto: "Promoções", destino: "/busca?ordem=menor-preco" },
 ];
 
 export default function Cabecalho() {
   const { usuario, totalDeItens } = useLoja();
   const navegar = useNavigate();
+  const { pathname, search } = useLocation();
+
+  function itemEstaAtivo(destino) {
+    const [caminho, consulta] = destino.split("?");
+    return pathname === caminho && search === (consulta ? "?" + consulta : "");
+  }
 
   function buscar(evento) {
     evento.preventDefault();
@@ -66,7 +72,11 @@ export default function Cabecalho() {
         <ul className="menu__lista">
           {menu.map((item) => (
             <li key={item.texto}>
-              <Link className="menu__link" to={item.destino}>
+              <Link
+                className={"menu__link" + (item.ativo !== false && itemEstaAtivo(item.destino) ? " menu__link--ativo" : "")}
+                to={item.destino}
+                aria-current={item.ativo !== false && itemEstaAtivo(item.destino) ? "page" : undefined}
+              >
                 {item.texto}
               </Link>
             </li>

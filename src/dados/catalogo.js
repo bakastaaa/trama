@@ -27,7 +27,7 @@ const pasta = "/img/produtos/";
 
 const lista = [
   {
-    id: 1, nome: "Camiseta Oversized", categoria: "Camisetas", tamanhos: ["PP", "P", "M", "G", "GG", "XG"],
+    id: 1, nome: "Camiseta Oversized", categoria: "Camisetas", publicos: ["feminino", "masculino"], tamanhos: ["PP", "P", "M", "G", "GG", "XG"],
     esgotados: ["XG"], cores: ["Preto", "Verde", "Lima", "Azul"], preco: 79.9, nota: 4.8, total: 126, lancamento: "2026-10-05", emoji: "👕",
     descricao: "Algodão 100%, modelagem ampla e caimento solto.",
     fotos: [
@@ -42,18 +42,18 @@ const lista = [
       { id: "c3", autor: "Ana Clara R.", data: "02/10/2026", nota: 5, texto: "Chegou antes do prazo e a cor é igual à da foto. Já pedi mais uma em outra cor.", uteis: 9 },
     ],
   },
-  { id: 2, nome: "Camiseta Básica Branca", categoria: "Camisetas", tamanhos: ["P", "M", "G", "GG"], cores: ["Branco"], preco: 59.9, nota: 4.5, total: 210, lancamento: "2026-08-20", emoji: "👕", descricao: "Básica de algodão penteado, combina com tudo." },
-  { id: 3, nome: "Camiseta Estampada", categoria: "Camisetas", tamanhos: ["M", "G"], cores: ["Lima", "Preto"], preco: 89.9, nota: 4.3, total: 44, lancamento: "2026-10-12", emoji: "👚", descricao: "Estampa exclusiva da coleção de primavera." },
-  { id: 4, nome: "Calça Cargo", categoria: "Calças", tamanhos: ["P", "M", "G", "GG"], cores: ["Verde", "Preto"], preco: 189.9, nota: 4.6, total: 84, lancamento: "2026-09-18", emoji: "👖", descricao: "Bolsos laterais e tecido resistente.", fotos: [{ arquivo: pasta + "calca-cargo.svg", alt: "Calça cargo verde-oliva" }] },
-  { id: 5, nome: "Calça Jeans Reta", categoria: "Calças", tamanhos: ["P", "M", "G", "GG"], cores: ["Azul"], preco: 219.9, nota: 4.7, total: 97, lancamento: "2026-07-30", emoji: "👖", descricao: "Jeans com elastano e corte reto." },
-  { id: 6, nome: "Vestido Midi", categoria: "Vestidos", tamanhos: ["P", "M", "G"], cores: ["Roxo"], preco: 229.9, nota: 4.9, total: 57, lancamento: "2026-10-10", emoji: "👗", descricao: "Leve, com cintura marcada.", fotos: [{ arquivo: pasta + "vestido-midi.svg", alt: "Vestido midi lilás" }] },
-  { id: 7, nome: "Vestido Curto Floral", categoria: "Vestidos", tamanhos: ["PP", "P", "M"], cores: ["Vermelho", "Branco"], preco: 179.9, nota: 4.2, total: 31, lancamento: "2026-09-02", emoji: "👗", descricao: "Estampa floral e tecido fluido." },
-  { id: 8, nome: "Jaqueta Jeans", categoria: "Jaquetas", tamanhos: ["M", "G", "GG"], cores: ["Azul"], preco: 259.9, nota: 4.7, total: 203, lancamento: "2026-06-15", emoji: "🧥", descricao: "Clássica, com botões e bolsos frontais.", fotos: [{ arquivo: pasta + "jaqueta-jeans.svg", alt: "Jaqueta jeans azul" }] },
-  { id: 9, nome: "Jaqueta Corta-Vento", categoria: "Jaquetas", tamanhos: ["P", "M", "G"], cores: ["Preto", "Lima"], preco: 199.9, nota: 4.4, total: 58, lancamento: "2026-10-01", emoji: "🧥", descricao: "Leve e resistente à chuva fraca." },
-  { id: 10, nome: "Boné Aba Curva", categoria: "Acessórios", tamanhos: ["Único"], cores: ["Vermelho", "Preto"], preco: 69.9, nota: 4.5, total: 39, lancamento: "2026-08-05", emoji: "🧢", descricao: "Ajuste traseiro e aba curva.", fotos: [{ arquivo: pasta + "bone.svg", alt: "Boné aba curva coral" }] },
-  { id: 11, nome: "Mochila Urbana", categoria: "Acessórios", tamanhos: ["Único"], cores: ["Preto"], preco: 159.9, nota: 4.6, total: 72, lancamento: "2026-09-25", emoji: "🎒", descricao: "Cabe notebook de 15 polegadas." },
-  { id: 12, nome: "Cinto de Couro", categoria: "Acessórios", tamanhos: ["P", "M", "G"], cores: ["Preto"], preco: 99.9, nota: 3.8, total: 18, lancamento: "2026-05-10", emoji: "👔", descricao: "Couro legítimo com fivela metálica." },
-].map((produto) => ({ ...produto, esgotados: produto.esgotados ?? [], fotos: produto.fotos ?? [], comentarios: produto.comentarios ?? [], distribuicao: criarDistribuicao(produto.total, produto.nota) }));
+  { id: 2, nome: "Camiseta Básica Branca", categoria: "Camisetas", publicos: ["feminino", "masculino"], tamanhos: ["P", "M", "G", "GG"], cores: ["Branco"], preco: 59.9, nota: 4.5, total: 210, lancamento: "2026-08-20", emoji: "👕", descricao: "Básica de algodão penteado, combina com tudo." },
+  { id: 3, nome: "Camiseta Estampada", categoria: "Camisetas", publicos: ["feminino"], tamanhos: ["M", "G"], cores: ["Lima", "Preto"], preco: 89.9, nota: 4.3, total: 44, lancamento: "2026-10-12", emoji: "👚", descricao: "Estampa exclusiva da coleção de primavera." },
+  { id: 4, nome: "Calça Cargo", categoria: "Calças", publicos: ["masculino"], tamanhos: ["P", "M", "G", "GG"], cores: ["Verde", "Preto"], preco: 189.9, nota: 4.6, total: 84, lancamento: "2026-09-18", emoji: "👖", descricao: "Bolsos laterais e tecido resistente.", fotos: [{ arquivo: pasta + "calca-cargo.svg", alt: "Calça cargo verde-oliva" }] },
+  { id: 5, nome: "Calça Jeans Reta", categoria: "Calças", publicos: ["feminino", "masculino"], tamanhos: ["P", "M", "G", "GG"], cores: ["Azul"], preco: 219.9, nota: 4.7, total: 97, lancamento: "2026-07-30", emoji: "👖", descricao: "Jeans com elastano e corte reto." },
+  { id: 6, nome: "Vestido Midi", categoria: "Vestidos", publicos: ["feminino"], tamanhos: ["P", "M", "G"], cores: ["Roxo"], preco: 229.9, nota: 4.9, total: 57, lancamento: "2026-10-10", emoji: "👗", descricao: "Leve, com cintura marcada.", fotos: [{ arquivo: pasta + "vestido-midi.svg", alt: "Vestido midi lilás" }] },
+  { id: 7, nome: "Vestido Curto Floral", categoria: "Vestidos", publicos: ["infantil"], tamanhos: ["PP", "P", "M"], cores: ["Vermelho", "Branco"], preco: 179.9, nota: 4.2, total: 31, lancamento: "2026-09-02", emoji: "👗", descricao: "Estampa floral e tecido fluido." },
+  { id: 8, nome: "Jaqueta Jeans", categoria: "Jaquetas", publicos: ["masculino"], tamanhos: ["M", "G", "GG"], cores: ["Azul"], preco: 259.9, nota: 4.7, total: 203, lancamento: "2026-06-15", emoji: "🧥", descricao: "Clássica, com botões e bolsos frontais.", fotos: [{ arquivo: pasta + "jaqueta-jeans.svg", alt: "Jaqueta jeans azul" }] },
+  { id: 9, nome: "Jaqueta Corta-Vento", categoria: "Jaquetas", publicos: ["infantil"], tamanhos: ["P", "M", "G"], cores: ["Preto", "Lima"], preco: 199.9, nota: 4.4, total: 58, lancamento: "2026-10-01", emoji: "🧥", descricao: "Leve e resistente à chuva fraca." },
+  { id: 10, nome: "Boné Aba Curva", categoria: "Acessórios", publicos: ["infantil"], tamanhos: ["Único"], cores: ["Vermelho", "Preto"], preco: 69.9, nota: 4.5, total: 39, lancamento: "2026-08-05", emoji: "🧢", descricao: "Ajuste traseiro e aba curva.", fotos: [{ arquivo: pasta + "bone.svg", alt: "Boné aba curva coral" }] },
+  { id: 11, nome: "Mochila Urbana", categoria: "Acessórios", publicos: ["infantil"], tamanhos: ["Único"], cores: ["Preto"], preco: 159.9, nota: 4.6, total: 72, lancamento: "2026-09-25", emoji: "🎒", descricao: "Cabe notebook de 15 polegadas." },
+  { id: 12, nome: "Cinto de Couro", categoria: "Acessórios", publicos: ["masculino"], tamanhos: ["P", "M", "G"], cores: ["Preto"], preco: 99.9, nota: 3.8, total: 18, lancamento: "2026-05-10", emoji: "👔", descricao: "Couro legítimo com fivela metálica." },
+].map((produto) => ({ ...produto, publicos: produto.publicos ?? [], esgotados: produto.esgotados ?? [], fotos: produto.fotos ?? [], comentarios: produto.comentarios ?? [], distribuicao: criarDistribuicao(produto.total, produto.nota) }));
 
 export const catalogo = lista;
 export const categorias = ["Camisetas", "Calças", "Vestidos", "Jaquetas", "Acessórios"];

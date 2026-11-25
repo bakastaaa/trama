@@ -95,7 +95,7 @@ function DetalheDoProduto({ produto }) {
             <Link className="trilha__link" to="/">Início</Link>
           </li>
           <li>
-            <Link className="trilha__link" to={"/busca?categoria=" + produto.categoria}>{produto.categoria}</Link>
+            <Link className="trilha__link" to={"/busca?categoria=" + produto.categoria.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()}>{produto.categoria}</Link>
           </li>
           <li aria-current="page">{produto.nome}</li>
         </ol>
@@ -122,7 +122,7 @@ function DetalheDoProduto({ produto }) {
         <h1 className="secao__titulo" id="titulo-pagina">Detalhes do produto</h1>
 
         <div className="produto-detalhe__corpo">
-          <div className="galeria">
+          <div className={"galeria" + (produto.fotos.length <= 1 ? " galeria--sem-miniaturas" : "")}>
             {produto.fotos.length > 1 && (
               <ul className="galeria__miniaturas" aria-label="Fotos do produto">
                 {produto.fotos.map((foto, indice) => (
@@ -251,7 +251,6 @@ function DetalheDoProduto({ produto }) {
                   <h3 className="relacionado__nome">
                     <Link className="relacionado__link" to={"/produto/" + item.id}>{item.nome}</Link>
                   </h3>
-                  <p className="relacionado__texto">{item.descricao}</p>
                   <p className="relacionado__preco">{formatarPreco(item.preco)}</p>
                 </div>
               </article>

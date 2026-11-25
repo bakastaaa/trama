@@ -8,6 +8,7 @@ import { useLoja } from "../contextos/LojaContexto.jsx";
 import { catalogo, categorias, resumirAvaliacoes } from "../dados/catalogo.js";
 
 const TAMANHO_PAGINA = 6;
+const publicos = { feminino: "Feminino", masculino: "Masculino", infantil: "Infantil" };
 
 function tirarAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -64,16 +65,20 @@ export default function Busca() {
   const [filtros, setFiltros] = useState(semFiltros);
   const [termo, setTermo] = useState("");
   const [ordem, setOrdem] = useState("relevancia");
+  const [publico, setPublico] = useState("");
   const [limite, setLimite] = useState(TAMANHO_PAGINA);
   const [painelAberto, setPainelAberto] = useState(false);
 
   // Sempre que o endereço muda (menu ou busca do cabeçalho), a tela acompanha
   const textoDosParametros = parametros.toString();
   useEffect(() => {
-    const categoria = parametros.get("categoria");
+    const categoriaDaUrl = tirarAcentos(parametros.get("categoria") ?? "");
+    const categoria = categorias.find((nome) => tirarAcentos(nome) === categoriaDaUrl);
     const ordemDaUrl = parametros.get("ordem");
-    setFiltros({ ...semFiltros, categoria: categorias.includes(categoria) ? [categoria] : [] });
+    const publicoDaUrl = parametros.get("publico");
+    setFiltros({ ...semFiltros, categoria: categoria ? [categoria] : [] });
     setOrdem(ordens[ordemDaUrl] ? ordemDaUrl : "relevancia");
+    setPublico(publicos[publicoDaUrl] ? publicoDaUrl : "");
     setTermo(parametros.get("q") ?? "");
     setLimite(TAMANHO_PAGINA);
   }, [textoDosParametros]);
@@ -85,6 +90,7 @@ export default function Busca() {
   function passaNosFiltros(produto) {
     const texto = tirarAcentos([produto.nome, produto.categoria, ...produto.cores].join(" "));
     if (!texto.includes(tirarAcentos(termo))) return false;
+    if (publico !== "" && !produto.publicos.includes(publico)) return false;
     const nota = notaDe(produto);
     return grupos.every((grupo) => {
       const marcadas = grupo.opcoes.filter((opcao) => filtros[grupo.chave].includes(opcao.valor));
@@ -106,6 +112,7 @@ export default function Busca() {
     setFiltros(semFiltros);
     setTermo("");
     setOrdem("relevancia");
+    setPublico("");
     setLimite(TAMANHO_PAGINA);
     anunciar("Filtros removidos.");
   }
@@ -113,6 +120,7 @@ export default function Busca() {
   function removerChip(chip) {
     if (chip.tipo === "filtro") alternarOpcao(chip.grupo, chip.valor);
     else if (chip.tipo === "busca") setTermo("");
+    else if (chip.tipo === "publico") setPublico("");
     else setOrdem("relevancia");
     titulo.current.focus(); // o chip sumiu: leva o foco para o título dos resultados
   }
@@ -130,6 +138,7 @@ export default function Busca() {
     })
   );
   if (termo !== "") chips.push({ texto: "Busca: " + termo, tipo: "busca" });
+  if (publico !== "") chips.push({ texto: publicos[publico], tipo: "publico" });
   if (ordem !== "relevancia") chips.push({ texto: ordens[ordem].rotulo, tipo: "ordem" });
 
   return (

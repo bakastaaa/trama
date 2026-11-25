@@ -50,7 +50,7 @@ export default function Avaliacoes({ produto }) {
           </ul>
         </section>
 
-        <div>
+        <div className="avaliacoes__conteudo">
           <ul className="avaliacoes__lista">
             {lista.map((avaliacao) => {
               const marcouUtil = marcacoes.uteis.includes(avaliacao.id);
@@ -89,7 +89,8 @@ export default function Avaliacoes({ produto }) {
             })}
           </ul>
           <p className="avaliacoes__vazio" hidden={lista.length > 0}>
-            Ainda não há comentários. Seja a primeira pessoa a avaliar!
+            <strong>Ainda não há comentários escritos</strong>
+            <span>A nota ao lado reúne as avaliações do produto. Conte como foi a sua experiência.</span>
           </p>
         </div>
       </div>
