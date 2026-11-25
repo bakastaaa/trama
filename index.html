@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trama | Moda para todos os estilos</title>
+    <meta name="description" content="Trama: loja online de roupas com camisetas, calças, vestidos, jaquetas e acessórios." />
+    <meta name="theme-color" content="#11111a" />
+    <link rel="icon" type="image/svg+xml" href="/img/trama-icone.svg" />
+    <style>
+      html { background: #fafafa; }
+      html[data-tema="escuro"] { background: #07070c; }
+    </style>
+    <script>
+      // Aplica o tema salvo ANTES de desenhar a página (assim ela não "pisca" no tema errado)
+      (function () {
+        var tema = null;
+        try {
+          tema = JSON.parse(localStorage.getItem("trama:tema"));
+        } catch (erro) {}
+        if (tema !== "claro" && tema !== "escuro") {
+          tema = window.matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+        }
+        document.documentElement.dataset.tema = tema;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="raiz"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
