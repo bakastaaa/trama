@@ -470,6 +470,11 @@
   right: var(--esp-1);
   border: 1px solid var(--cor-primaria);
   background-color: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+}
+
+.produto__favorito:hover {
+  background-color: var(--cor-primaria-hover);
 }
 
 .produto__favorito[aria-pressed="true"] .icone {

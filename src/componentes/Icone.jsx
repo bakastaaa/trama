@@ -1,5 +1,12 @@
 // Ícones do site (todos decorativos: o texto de acessibilidade fica no botão ou link que os usa)
 const desenhos = {
+  inicio: (
+  <>
+    <path d="M3 10L12 3L21 10" />
+    <path d="M5 9V21H19V9" />
+    <path d="M9 21V14H15V21" />
+  </>
+),
   coracao: <path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z" />,
   busca: (
     <>
